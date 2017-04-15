@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "atividadefinal.db";
-    private static final int VERSAO_BANCO = 1;
+    private static final int VERSAO_BANCO = 2;
     private Context ctx;
     public DBOpenHelper(Context context) {
         super(context, DB_NAME, null, VERSAO_BANCO);

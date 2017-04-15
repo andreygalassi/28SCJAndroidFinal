@@ -8,25 +8,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 
+import br.fiap.android.trabalhofinal.dao.UsuarioDAO;
+import br.fiap.android.trabalhofinal.model.Usuario;
+
 public class LoginActivity extends AppCompatActivity {
 
-    private final String LOGIN_DEFAULT = "teste";
-    private final String SENHA_DEFAULT = "teste";
     private final String KEY_APP_PREFERENCES = "login";
     private final String KEY_LOGIN = "login";
     private TextInputLayout tilLogin;
     private TextInputLayout tilSenha;
     private CheckBox cbManterConectado;
+    private UsuarioDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        dao = new UsuarioDAO(this);
         tilLogin = (TextInputLayout) findViewById(R.id.tilLogin);
         tilSenha = (TextInputLayout) findViewById(R.id.tilSenha);
         cbManterConectado = (CheckBox) findViewById(R.id.cbManterConectado);
-        if(isConectado())
+        if(isConectado()) {
             iniciarApp();
+        }
     }
 
     //Método que será chamado no onclick do botao
@@ -42,13 +46,21 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isLoginValido() {
         String login = tilLogin.getEditText().getText().toString();
         String senha = tilSenha.getEditText().getText().toString();
-        if(login.equals(LOGIN_DEFAULT) && senha.equals(SENHA_DEFAULT)) {
+
+        Usuario usuario = dao.getByLogin(login);
+
+        if(usuario!=null && login.equals(usuario.getLogin()) && senha.equals(usuario.getSenha())) {
             return true;
         } else
             return false;
     }
     private void manterConectado(){
         String login = tilLogin.getEditText().getText().toString();
+
+        Usuario usuario = dao.getByLogin(login);
+        usuario.setConectado(true);
+        dao.save(usuario);
+
         SharedPreferences pref = getSharedPreferences(KEY_APP_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(KEY_LOGIN, login);
