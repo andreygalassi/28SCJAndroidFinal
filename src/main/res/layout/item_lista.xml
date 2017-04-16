@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvHNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nome"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/background_dark"
+        android:textCursorDrawable="@android:color/background_dark"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvHData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Data"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColorHint="@android:color/holo_blue_dark"
+        android:textSize="15dp" />
+
+
+</LinearLayout>
