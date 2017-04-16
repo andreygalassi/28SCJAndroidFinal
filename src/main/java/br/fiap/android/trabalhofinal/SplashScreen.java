@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
                 if (isConectado()){
                     intent = new Intent(SplashScreen.this, MainActivity.class);
                 }else{
-                    intent = new Intent(SplashScreen.this, MainActivity.class);
+                    intent = new Intent(SplashScreen.this, LoginActivity.class);
                 }
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);

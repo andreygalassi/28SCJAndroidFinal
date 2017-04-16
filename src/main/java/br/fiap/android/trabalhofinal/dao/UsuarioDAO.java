@@ -62,7 +62,7 @@ public class UsuarioDAO {
         String query = "SELECT * FROM " + TABELA + " WHERE " + COLUNA_LOGIN + " = '" + login + "'";
         Cursor cursor = db.rawQuery(query, null);
         Usuario usuario = null;
-        if(cursor != null) {
+        if(cursor != null && cursor.getCount()>0) {
             cursor.moveToFirst();
             Integer _id = cursor.getInt(cursor.getColumnIndex(COLUNA_ID));
             String _login = cursor.getString(cursor.getColumnIndex(COLUNA_LOGIN));

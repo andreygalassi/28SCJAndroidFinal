@@ -6,21 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logo" />
+        android:src="@drawable/logo_film"
+        android:id="@+id/ivLogo"/>
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome: Andrey Galassi" />
+        android:text="@string/autor" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Versão: 1.0" />
+        android:text="@string/versao" />
 </LinearLayout>

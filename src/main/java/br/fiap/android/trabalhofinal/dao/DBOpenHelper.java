@@ -8,6 +8,7 @@ import br.fiap.android.trabalhofinal.R;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,15 +20,17 @@ import java.io.InputStreamReader;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "atividadefinal.db";
-    private static final int VERSAO_BANCO = 2;
+    private static final int VERSAO_BANCO = 1;
     private Context ctx;
     public DBOpenHelper(Context context) {
         super(context, DB_NAME, null, VERSAO_BANCO);
         this.ctx = context;
+//        ctx.deleteDatabase(DB_NAME);
     }
     // Método chamado quando há necessidade de criar o banco
     @Override
     public void onCreate(SQLiteDatabase db) {
+//        ctx.deleteDatabase(DB_NAME);
         // cria a estrutura do banco
         lerEExecutarSQLScript(db, ctx, R.raw.db_criar);
         // Insere os dados iniciais
@@ -36,6 +39,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     // Método chamado quando há necessidade de atualizar o banco o banco
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//        ctx.deleteDatabase(DB_NAME);
         for(int i = oldVersion; i < newVersion; ++i) {
             String migrationFileName = String.format("from_%d_to_%d", i, (i+1));
             log("Looking for migration file: " + migrationFileName);
