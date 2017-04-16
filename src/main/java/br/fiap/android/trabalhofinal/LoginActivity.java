@@ -7,13 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import br.fiap.android.trabalhofinal.dao.UsuarioDAO;
 import br.fiap.android.trabalhofinal.model.Usuario;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final String KEY_APP_PREFERENCES = "login";
+    private final String KEY_APP_PREFERENCES = "trabfinal";
     private final String KEY_LOGIN = "login";
     private TextInputLayout tilLogin;
     private TextInputLayout tilSenha;
@@ -40,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
                 manterConectado();
             }
             iniciarApp();
+        }else{
+            Toast.makeText(this, R.string.usuario_invalido, Toast.LENGTH_SHORT).show();
         }
     }
     // Valida o login
@@ -67,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.apply();
     }
     private boolean isConectado() {
-        SharedPreferences shared = getSharedPreferences("info",MODE_PRIVATE);
+        SharedPreferences shared = getSharedPreferences(KEY_APP_PREFERENCES,MODE_PRIVATE);
         String login = shared.getString(KEY_LOGIN, "");
         if(login.equals(""))
             return false;

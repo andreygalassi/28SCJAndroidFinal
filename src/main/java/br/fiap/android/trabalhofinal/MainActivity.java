@@ -1,6 +1,7 @@
 package br.fiap.android.trabalhofinal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,11 +22,15 @@ import java.util.List;
 
 import br.fiap.android.trabalhofinal.adapter.SeriadoAdapter;
 import br.fiap.android.trabalhofinal.dao.SeriadoDAO;
+import br.fiap.android.trabalhofinal.dao.UsuarioDAO;
 import br.fiap.android.trabalhofinal.model.Seriado;
+import br.fiap.android.trabalhofinal.model.Usuario;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final String KEY_APP_PREFERENCES = "trabfinal";
+    private final String KEY_LOGIN = "login";
     private RecyclerView rvLista;
 
     @Override
@@ -83,7 +88,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sobre) {
+            startActivityForResult(new Intent(this, SobreActivity.class),1002);
             return true;
         }
 
@@ -99,7 +105,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_novo) {
             startActivityForResult(new Intent(MainActivity.this, NovoSeriadoActivity.class),1002);
         } else if (id == R.id.nav_logoff) {
-
+            desconectar();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -113,7 +121,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_CANCELED) {
-            Toast.makeText(MainActivity.this, "Cancelado", Toast.LENGTH_LONG).show();
+//            Toast.makeText(MainActivity.this, R.string.cancelado, Toast.LENGTH_LONG).show();
         } else if(requestCode == 1002) {
             carregaSeriados();
         }
@@ -125,5 +133,20 @@ public class MainActivity extends AppCompatActivity
         rvLista.setAdapter(new SeriadoAdapter(lista, this));
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvLista.setLayoutManager(layout);
+    }
+    private void desconectar(){
+        SharedPreferences pref = getSharedPreferences(KEY_APP_PREFERENCES, MODE_PRIVATE);
+        String login = pref.getString(KEY_LOGIN,"");
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+
+        if (login!="") {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(this);
+            Usuario usuario = usuarioDAO.getByLogin(login);
+            usuario.setConectado(false);
+            usuarioDAO.save(usuario);
+        }
+
     }
 }

@@ -7,4 +7,9 @@
     <string name="action_settings">Settings</string>
     <string name="autor">Nome: Andrey Galassi</string>
     <string name="versao">Versão: 1.0</string>
+    <string name="usuario_invalido">Usuário ou senha inválido</string>
+    <string name="cancelado">Cancelado</string>
+    <string name="sobre">Sobre</string>
+    <string name="aluno">Andrey Galassi - RM31680</string>
+    <string name="trabalho_final">Trabalho Final de Android - 28SCJ</string>
 </resources>

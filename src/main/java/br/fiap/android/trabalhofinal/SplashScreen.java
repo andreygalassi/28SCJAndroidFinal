@@ -16,7 +16,8 @@ import br.fiap.android.trabalhofinal.utils.SincronizaUsuario;
 public class SplashScreen extends AppCompatActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 5000;
-    private final String KEY_LOGIN = "login";
+    private final String KEY_APP_PREFERENCES = "trabfinal";
+    private final String KEY_LOGIN = "loginfinal";
     private ImageView ivLogo;
 
     @Override
@@ -52,7 +53,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private boolean isConectado() {
-        SharedPreferences shared = getSharedPreferences("info",MODE_PRIVATE);
+        SharedPreferences shared = getSharedPreferences(KEY_APP_PREFERENCES,MODE_PRIVATE);
         String login = shared.getString(KEY_LOGIN, "");
         if(login.equals(""))
             return false;
